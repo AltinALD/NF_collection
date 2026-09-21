@@ -255,7 +255,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 .btn-ghost-dark:hover { border-color: var(--ink); }
 .btn-block { width: 100%; }
 
-/* Hero — full-bleed video */
+/* Hero — moving image close-up slideshow */
 .hero {
   position: relative;
   min-height: 100svh;
@@ -268,23 +268,45 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 
 .hero-media { position: absolute; inset: 0; }
 
-.hero-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
+.hero-slides {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: -8%;
+  background-size: cover;
+  background-position: center 18%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 1.4s var(--ease);
+  animation: none;
+}
+
+.hero-slide.is-active {
+  opacity: 1;
+  z-index: 1;
+  animation: heroCloseIn 9s ease-out forwards;
+}
+
+@keyframes heroCloseIn {
+  from { transform: scale(1.08); background-position: center 22%; }
+  to { transform: scale(1.22); background-position: center 12%; }
 }
 
 .hero-veil {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background:
-    linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.82) 100%);
+    linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.28) 38%, rgba(0,0,0,0.88) 100%);
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   text-align: center;
   padding: calc(var(--header-h) + 32px) 20px calc(88px + var(--safe-b));
   max-width: 520px;
@@ -349,7 +371,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   bottom: calc(20px + var(--safe-b));
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 3;
   width: 22px;
   height: 36px;
   border: 1px solid rgba(255, 255, 255, 0.35);

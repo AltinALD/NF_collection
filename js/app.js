@@ -421,12 +421,25 @@ function initHeader() {
   });
 }
 
+function initHeroSlides() {
+  const slides = $$(".hero-slide");
+  if (slides.length < 2) return;
+  let i = 0;
+  setInterval(() => {
+    slides[i].classList.remove("is-active");
+    i = (i + 1) % slides.length;
+    void slides[i].offsetWidth;
+    slides[i].classList.add("is-active");
+  }, 7000);
+}
+
 function init() {
   const year = $("#year");
   if (year) year.textContent = String(new Date().getFullYear());
 
   applyI18n();
   initHeader();
+  initHeroSlides();
 
   $("#cartBtn")?.addEventListener("click", openCart);
   $("#addToCartBtn")?.addEventListener("click", addToCart);
